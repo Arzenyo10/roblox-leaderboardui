@@ -1,0 +1,380 @@
+--[[
+	AFTERHOURS Leaderboard - SERVER (v2, works with your DonationServer)
+	Place as a Script in ServerScriptService, name it "LeaderboardServer".
+
+	Boards:
+	  Donated  = all-time Robux   (READ from your DonationServer's DonationAllTime_v1)
+	  Weekly   = this week's Robux (READ from your DonationServer's weekly stores)
+	  Time     = seconds played   (tracked + saved by this script)
+
+	This script does NOT touch MarketplaceService.ProcessReceipt, so it can
+	never clash with your DonationServer. Donations stay single-source-of-truth.
+
+	Optional instant refresh after a donation: see the one-line patch for
+	your DonationServer (fires ServerStorage.LeaderboardRefresh).
+]]
+
+local Players = game:GetService("Players")
+local DataStoreService = game:GetService("DataStoreService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerStorage = game:GetService("ServerStorage")
+
+--==================================================
+-- CONFIG
+--==================================================
+
+local CONFIG = {
+	TopCount = 50,         -- entries per board (max 100)
+	RefreshInterval = 60,  -- seconds between save + board refresh
+	TimeVersion = "v1",    -- change to reset the Time Played board
+}
+
+--==================================================
+-- STORES (donation names must match your DonationServer exactly)
+--==================================================
+
+local UserDataStore = DataStoreService:GetDataStore("DonationUserData_v1")
+local AllTimeStore = DataStoreService:GetOrderedDataStore("DonationAllTime_v1")
+
+local TimeStore = DataStoreService:GetDataStore("AH_LB_Time_" .. CONFIG.TimeVersion)
+local TimeBoard = DataStoreService:GetOrderedDataStore("AH_LB_TimeBoard_" .. CONFIG.TimeVersion)
+
+-- Same week bucket logic as your DonationServer.
+local function getWeekKey(timestamp)
+	local dateTable = os.date("!*t", timestamp or os.time())
+	local dayOfYear = tonumber(os.date("!%j", timestamp or os.time()))
+	local weekNumber = math.floor((dayOfYear - 1) / 7) + 1
+	return string.format("%04d-W%02d", dateTable.year, weekNumber)
+end
+
+local function getWeeklyStore(weekKey)
+	return DataStoreService:GetOrderedDataStore("DonationWeekly_" .. weekKey)
+end
+
+--==================================================
+-- REMOTES
+--==================================================
+
+local remotes = Instance.new("Folder")
+remotes.Name = "LeaderboardRemotes"
+remotes.Parent = ReplicatedStorage
+
+local getBoards = Instance.new("RemoteFunction")
+getBoards.Name = "GetBoards"
+getBoards.Parent = remotes
+
+local boardsUpdated = Instance.new("RemoteEvent")
+boardsUpdated.Name = "BoardsUpdated"
+boardsUpdated.Parent = remotes
+
+local refreshEvent = Instance.new("BindableEvent")
+refreshEvent.Name = "LeaderboardRefresh"
+refreshEvent.Parent = ServerStorage
+
+--==================================================
+-- HELPERS
+--==================================================
+
+local function retry(fn, attempts)
+	local lastErr
+	for i = 1, attempts do
+		local ok, result = pcall(fn)
+		if ok then
+			return true, result
+		end
+		lastErr = result
+		task.wait(i)
+	end
+	return false, lastErr
+end
+
+--==================================================
+-- SESSIONS (time played)
+--==================================================
+-- Saved   = last value confirmed in the DataStore
+-- Pending = earned in this server, not saved yet
+
+local sessions = {}
+
+local function accrue(s)
+	local now = os.clock()
+	s.Pending += now - s.LastTick
+	s.LastTick = now
+end
+
+local function currentTime(s)
+	accrue(s)
+	return math.floor(s.Saved + s.Pending)
+end
+
+local function loadPlayer(player)
+	local s = {
+		Player = player,
+		Key = "P_" .. player.UserId,
+		Saved = 0,
+		Pending = 0,
+		LastTick = os.clock(),
+		Saving = false,
+		Donated = 0,
+		Weekly = 0,
+	}
+	sessions[player] = s
+
+	local ok, data = retry(function()
+		return TimeStore:GetAsync(s.Key)
+	end, 3)
+
+	if ok then
+		if type(data) == "table" then
+			s.Saved = data.Time or 0
+		end
+	else
+		-- Safe: only deltas are ever added, so this can't overwrite data.
+		warn("[AFTERHOURS Leaderboard] Time load failed for", player.Name, data)
+	end
+end
+
+local function savePlayer(s)
+	while s.Saving do
+		task.wait()
+	end
+	s.Saving = true
+
+	accrue(s)
+	local add = math.floor(s.Pending)
+	s.Pending -= add
+
+	local ok, result = retry(function()
+		return TimeStore:UpdateAsync(s.Key, function(old)
+			old = type(old) == "table" and old or {}
+			return { Time = (old.Time or 0) + add }
+		end)
+	end, 3)
+
+	if ok and type(result) == "table" then
+		s.Saved = result.Time
+		if result.Time > 0 then
+			pcall(function()
+				TimeBoard:SetAsync(tostring(s.Player.UserId), math.floor(result.Time))
+			end)
+		end
+	else
+		s.Pending += add
+		ok = false
+		warn("[AFTERHOURS Leaderboard] Time save failed for", s.Player.Name)
+	end
+
+	s.Saving = false
+	return ok
+end
+
+-- Pull this player's donation totals from your DonationServer record.
+local function syncDonations(s, weekKey)
+	local ok, record = pcall(function()
+		return UserDataStore:GetAsync(tostring(s.Player.UserId))
+	end)
+
+	if ok and type(record) == "table" then
+		s.Donated = tonumber(record.Total) or 0
+		local weeks = type(record.Weeks) == "table" and record.Weeks or {}
+		s.Weekly = tonumber(weeks[weekKey]) or 0
+	end
+end
+
+--==================================================
+-- BOARDS
+--==================================================
+
+local boards = { Donated = {}, Weekly = {}, Time = {} }
+local nextRefreshAt = os.clock() + CONFIG.RefreshInterval
+local nameCache = {}
+
+local function getName(userId)
+	if nameCache[userId] then
+		return nameCache[userId]
+	end
+
+	local ok, name = pcall(function()
+		return Players:GetNameFromUserIdAsync(userId)
+	end)
+
+	name = ok and name or ("Player" .. userId)
+	nameCache[userId] = name
+	return name
+end
+
+local function fetchBoard(store)
+	local ok, entries = pcall(function()
+		local pages = store:GetSortedAsync(false, math.clamp(CONFIG.TopCount, 1, 100))
+		return pages:GetCurrentPage()
+	end)
+
+	if not ok then
+		warn("[AFTERHOURS Leaderboard] Board fetch failed:", entries)
+		return nil
+	end
+
+	local list = {}
+	for _, entry in ipairs(entries) do
+		local userId = tonumber(entry.key)
+		local value = tonumber(entry.value) or 0
+		if userId and value > 0 then
+			table.insert(list, {
+				UserId = userId,
+				Value = value,
+				Name = nameCache[userId] or "...",
+			})
+		end
+	end
+
+	local waiting = 0
+	for _, entry in ipairs(list) do
+		if not nameCache[entry.UserId] then
+			waiting += 1
+			task.spawn(function()
+				entry.Name = getName(entry.UserId)
+				waiting -= 1
+			end)
+		end
+	end
+	while waiting > 0 do
+		task.wait()
+	end
+
+	return list
+end
+
+local function buildMe(player)
+	local s = sessions[player]
+	local me = { Donated = 0, Weekly = 0, Time = 0 }
+
+	if s then
+		me.Donated = s.Donated
+		me.Weekly = s.Weekly
+		me.Time = currentTime(s)
+	end
+
+	for key, list in pairs(boards) do
+		for rank, entry in ipairs(list) do
+			if entry.UserId == player.UserId then
+				me[key .. "Rank"] = rank
+				break
+			end
+		end
+	end
+
+	return me
+end
+
+local function buildPayload(player)
+	return {
+		Donated = boards.Donated,
+		Weekly = boards.Weekly,
+		Time = boards.Time,
+		Me = buildMe(player),
+		RefreshIn = math.max(0, math.floor(nextRefreshAt - os.clock())),
+	}
+end
+
+local refreshing = false
+
+local function refresh()
+	if refreshing then
+		return
+	end
+	refreshing = true
+
+	local weekKey = getWeekKey()
+
+	-- 1) save time + sync donation totals for everyone online
+	local working = 0
+	local snapshot = {}
+	for _, s in pairs(sessions) do
+		table.insert(snapshot, s)
+	end
+	for _, s in ipairs(snapshot) do
+		working += 1
+		task.spawn(function()
+			savePlayer(s)
+			syncDonations(s, weekKey)
+			working -= 1
+		end)
+	end
+	while working > 0 do
+		task.wait()
+	end
+
+	-- 2) pull the top lists
+	local donated = fetchBoard(AllTimeStore)
+	local weekly = fetchBoard(getWeeklyStore(weekKey))
+	local time = fetchBoard(TimeBoard)
+	if donated then boards.Donated = donated end
+	if weekly then boards.Weekly = weekly end
+	if time then boards.Time = time end
+
+	nextRefreshAt = os.clock() + CONFIG.RefreshInterval
+
+	-- 3) broadcast
+	for _, player in ipairs(Players:GetPlayers()) do
+		boardsUpdated:FireClient(player, buildPayload(player))
+	end
+
+	refreshing = false
+end
+
+getBoards.OnServerInvoke = function(player)
+	return buildPayload(player)
+end
+
+-- Fired by your DonationServer after a donation (debounced).
+local refreshQueued = false
+refreshEvent.Event:Connect(function()
+	if refreshQueued then
+		return
+	end
+	refreshQueued = true
+	task.delay(3, function() -- give the ordered stores a moment to settle
+		refreshQueued = false
+		refresh()
+	end)
+end)
+
+--==================================================
+-- LIFECYCLE
+--==================================================
+
+Players.PlayerAdded:Connect(loadPlayer)
+for _, player in ipairs(Players:GetPlayers()) do
+	task.spawn(loadPlayer, player)
+end
+
+Players.PlayerRemoving:Connect(function(player)
+	local s = sessions[player]
+	if s then
+		savePlayer(s)
+		sessions[player] = nil
+	end
+end)
+
+game:BindToClose(function()
+	local saving = 0
+	for _, s in pairs(sessions) do
+		saving += 1
+		task.spawn(function()
+			savePlayer(s)
+			saving -= 1
+		end)
+	end
+
+	local deadline = os.clock() + 25
+	while saving > 0 and os.clock() < deadline do
+		task.wait()
+	end
+end)
+
+task.spawn(function()
+	while true do
+		refresh()
+		task.wait(CONFIG.RefreshInterval)
+	end
+end)
