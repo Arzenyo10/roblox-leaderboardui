@@ -1,0 +1,1144 @@
+local UIColors = {}
+
+--==================================================
+-- THEME PRESETS
+--==================================================
+
+UIColors.Themes = {
+
+	Monochrome = {
+		Backdrop = Color3.fromRGB(3, 3, 4),
+		Panel = Color3.fromRGB(10, 10, 12),
+		Glass = Color3.fromRGB(20, 20, 24),
+		Black = Color3.fromRGB(4, 4, 5),
+
+		White = Color3.fromRGB(255, 255, 255),
+		Muted = Color3.fromRGB(172, 172, 185),
+
+		Line = Color3.fromRGB(125, 125, 140),
+		Soft = Color3.fromRGB(34, 34, 40),
+		GlassHover = Color3.fromRGB(255, 255, 255),
+		RedDark = Color3.fromRGB(28, 28, 33),
+
+		RankFirst = Color3.fromRGB(255, 255, 255),
+		RankSecond = Color3.fromRGB(218, 218, 228),
+		RankThird = Color3.fromRGB(150, 150, 164),
+
+		AvatarAmbient = Color3.fromRGB(205, 205, 216),
+		AvatarLight = Color3.fromRGB(255, 255, 255),
+		ButtonHover = Color3.fromRGB(238, 238, 245),
+
+		Gradient = {
+			Rotation = 0,
+			Left = Color3.fromRGB(255, 255, 255),
+			Middle = Color3.fromRGB(228, 228, 236),
+			Right = Color3.fromRGB(140, 140, 154),
+		},
+	},
+
+	MidnightBlue = {
+		Backdrop = Color3.fromRGB(4, 7, 16),
+		Panel = Color3.fromRGB(10, 16, 31),
+		Glass = Color3.fromRGB(18, 28, 48),
+		Black = Color3.fromRGB(5, 9, 19),
+
+		White = Color3.fromRGB(240, 247, 255),
+		Muted = Color3.fromRGB(145, 165, 195),
+
+		Line = Color3.fromRGB(55, 100, 160),
+		Soft = Color3.fromRGB(25, 43, 70),
+		GlassHover = Color3.fromRGB(80, 155, 255),
+		RedDark = Color3.fromRGB(15, 25, 48),
+
+		RankFirst = Color3.fromRGB(120, 190, 255),
+		RankSecond = Color3.fromRGB(175, 200, 230),
+		RankThird = Color3.fromRGB(105, 140, 180),
+
+		AvatarAmbient = Color3.fromRGB(160, 190, 235),
+		AvatarLight = Color3.fromRGB(220, 240, 255),
+		ButtonHover = Color3.fromRGB(150, 205, 255),
+
+		Gradient = {
+			Rotation = 0,
+			Left = Color3.fromRGB(120, 190, 255),
+			Middle = Color3.fromRGB(75, 135, 230),
+			Right = Color3.fromRGB(35, 75, 150),
+		},
+	},
+
+	NeonPink = {
+		Backdrop = Color3.fromRGB(16, 2, 14),
+		Panel = Color3.fromRGB(28, 6, 25),
+		Glass = Color3.fromRGB(46, 12, 42),
+		Black = Color3.fromRGB(13, 2, 11),
+
+		White = Color3.fromRGB(255, 240, 252),
+		Muted = Color3.fromRGB(218, 132, 202),
+
+		Line = Color3.fromRGB(230, 50, 175),
+		Soft = Color3.fromRGB(70, 20, 62),
+		GlassHover = Color3.fromRGB(255, 60, 200),
+		RedDark = Color3.fromRGB(55, 10, 46),
+
+		RankFirst = Color3.fromRGB(255, 90, 215),
+		RankSecond = Color3.fromRGB(242, 165, 232),
+		RankThird = Color3.fromRGB(190, 90, 175),
+
+		AvatarAmbient = Color3.fromRGB(245, 140, 235),
+		AvatarLight = Color3.fromRGB(255, 205, 250),
+		ButtonHover = Color3.fromRGB(255, 110, 225),
+
+		Gradient = {
+			Rotation = 0,
+			Left = Color3.fromRGB(255, 120, 235),
+			Middle = Color3.fromRGB(255, 40, 190),
+			Right = Color3.fromRGB(170, 0, 140),
+		},
+	},
+
+	Emerald = {
+		Backdrop = Color3.fromRGB(2, 14, 9),
+		Panel = Color3.fromRGB(6, 26, 17),
+		Glass = Color3.fromRGB(12, 42, 28),
+		Black = Color3.fromRGB(2, 11, 7),
+
+		White = Color3.fromRGB(236, 255, 244),
+		Muted = Color3.fromRGB(120, 205, 150),
+
+		Line = Color3.fromRGB(30, 200, 110),
+		Soft = Color3.fromRGB(16, 62, 40),
+		GlassHover = Color3.fromRGB(40, 255, 140),
+		RedDark = Color3.fromRGB(8, 40, 25),
+
+		RankFirst = Color3.fromRGB(70, 255, 155),
+		RankSecond = Color3.fromRGB(160, 235, 185),
+		RankThird = Color3.fromRGB(80, 185, 120),
+
+		AvatarAmbient = Color3.fromRGB(130, 240, 170),
+		AvatarLight = Color3.fromRGB(205, 255, 225),
+		ButtonHover = Color3.fromRGB(90, 255, 170),
+
+		Gradient = {
+			Rotation = 0,
+			Left = Color3.fromRGB(120, 255, 180),
+			Middle = Color3.fromRGB(20, 225, 110),
+			Right = Color3.fromRGB(0, 130, 70),
+		},
+	},
+
+	CrimsonLightning = {
+		Backdrop = Color3.fromRGB(14, 3, 5),
+		Panel = Color3.fromRGB(26, 7, 10),
+		Glass = Color3.fromRGB(43, 12, 17),
+		Black = Color3.fromRGB(12, 3, 5),
+
+		White = Color3.fromRGB(255, 246, 240),
+		Muted = Color3.fromRGB(200, 140, 140),
+
+		Line = Color3.fromRGB(160, 35, 50),
+		Soft = Color3.fromRGB(62, 18, 24),
+		GlassHover = Color3.fromRGB(235, 40, 65),   -- crimson accent
+		RedDark = Color3.fromRGB(50, 10, 16),
+
+		RankFirst = Color3.fromRGB(255, 225, 60),   -- lightning yellow
+		RankSecond = Color3.fromRGB(235, 175, 150),
+		RankThird = Color3.fromRGB(175, 105, 105),
+
+		AvatarAmbient = Color3.fromRGB(235, 150, 140),
+		AvatarLight = Color3.fromRGB(255, 240, 190),
+		ButtonHover = Color3.fromRGB(255, 220, 70), -- yellow flash on hover
+
+		Gradient = {
+			Rotation = 0,
+			Left = Color3.fromRGB(255, 230, 70),    -- lightning yellow
+			Middle = Color3.fromRGB(235, 45, 60),   -- crimson
+			Right = Color3.fromRGB(125, 12, 30),    -- deep blood red
+		},
+	},
+
+	NeonRainbow = {
+		Backdrop = Color3.fromRGB(6, 4, 14),
+		Panel = Color3.fromRGB(14, 10, 28),
+		Glass = Color3.fromRGB(24, 18, 44),
+		Black = Color3.fromRGB(8, 5, 16),
+
+		White = Color3.fromRGB(255, 255, 255),
+		Muted = Color3.fromRGB(190, 170, 235),
+
+		Line = Color3.fromRGB(170, 90, 255),
+		Soft = Color3.fromRGB(40, 28, 72),
+		GlassHover = Color3.fromRGB(0, 240, 255),   -- neon cyan accent
+		RedDark = Color3.fromRGB(30, 18, 55),
+
+		RankFirst = Color3.fromRGB(255, 225, 60),
+		RankSecond = Color3.fromRGB(70, 255, 170),
+		RankThird = Color3.fromRGB(255, 90, 200),
+
+		AvatarAmbient = Color3.fromRGB(190, 170, 255),
+		AvatarLight = Color3.fromRGB(240, 230, 255),
+		ButtonHover = Color3.fromRGB(120, 240, 255),
+
+		Gradient = {
+			Rotation = 0,
+			Left = Color3.fromRGB(255, 70, 110),    -- aurora orb 1
+			Middle = Color3.fromRGB(60, 255, 150),  -- aurora orb 2
+			Right = Color3.fromRGB(100, 120, 255),  -- aurora orb 3
+
+			-- Full spectrum used by ApplyGradient() when present.
+			Stops = {
+				Color3.fromRGB(255, 50, 90),
+				Color3.fromRGB(255, 150, 40),
+				Color3.fromRGB(255, 230, 60),
+				Color3.fromRGB(60, 255, 130),
+				Color3.fromRGB(50, 230, 255),
+				Color3.fromRGB(90, 120, 255),
+				Color3.fromRGB(190, 80, 255),
+			},
+		},
+	},
+}
+
+--==================================================
+-- THEME STATE
+--==================================================
+
+-- Change this to set the default theme.
+UIColors.CurrentTheme = "Monochrome"
+
+-- BindableEvent works for scripts requiring this module
+-- in the same client or server Luau environment.
+local themeChangedEvent = Instance.new("BindableEvent")
+UIColors.ThemeChanged = themeChangedEvent.Event
+
+--==================================================
+-- THEME OWNERSHIP (LOCKING)
+--==================================================
+-- LOCKED BY DEFAULT: only the free themes below work until
+-- ThemeOwnershipClient reports what the player actually owns.
+
+local FREE_THEMES = {
+	Monochrome = true,
+}
+
+local unlockedThemes = {}
+for name in pairs(FREE_THEMES) do
+	unlockedThemes[name] = true
+end
+
+local unlocksChangedEvent = Instance.new("BindableEvent")
+UIColors.UnlocksChanged = unlocksChangedEvent.Event
+
+-- [themeName] = developer product id (filled by ThemeOwnershipClient)
+UIColors.ThemeProductIds = {}
+
+function UIColors.SetUnlockedThemes(set)
+	unlockedThemes = {}
+
+	for name in pairs(FREE_THEMES) do
+		unlockedThemes[name] = true
+	end
+
+	for name, owned in pairs(set) do
+		if owned then
+			unlockedThemes[name] = true
+		end
+	end
+
+	unlocksChangedEvent:Fire()
+end
+
+function UIColors.IsThemeUnlocked(name)
+	return unlockedThemes[name] == true
+end
+
+--==================================================
+-- APPLY THE CURRENT THEME
+--==================================================
+
+local function applyThemeProperties(theme)
+	for key, value in pairs(theme) do
+		UIColors[key] = value
+	end
+
+	-- Backward-compatible aliases used by older scripts.
+	UIColors.Background = UIColors.Backdrop
+	UIColors.Panel2 = UIColors.Glass
+	UIColors.Red = UIColors.GlassHover
+	UIColors.Gold = UIColors.White
+end
+
+applyThemeProperties(UIColors.Themes[UIColors.CurrentTheme])
+
+--==================================================
+-- CHANGE THEME
+--==================================================
+
+function UIColors.SetTheme(themeName)
+	local selectedTheme = UIColors.Themes[themeName]
+
+	if not selectedTheme then
+		warn(
+			"[AFTERHOURS UIColors] Unknown theme:",
+			tostring(themeName)
+		)
+		return false
+	end
+
+	-- Locked themes cannot be applied until the player owns them.
+	if not UIColors.IsThemeUnlocked(themeName) then
+		return false
+	end
+
+	if UIColors.CurrentTheme == themeName then
+		return true
+	end
+
+	UIColors.CurrentTheme = themeName
+	applyThemeProperties(selectedTheme)
+
+	-- Notify subscribed UI scripts.
+	themeChangedEvent:Fire(themeName, selectedTheme)
+
+	print("[AFTERHOURS UIColors] Theme changed to:", themeName)
+
+	return true
+end
+
+--==================================================
+-- GET AVAILABLE THEMES
+--==================================================
+
+function UIColors.GetThemeNames()
+	local names = {}
+
+	for name in pairs(UIColors.Themes) do
+		table.insert(names, name)
+	end
+
+	table.sort(names)
+
+	return names
+end
+
+--==================================================
+-- APPLY SHARED GRADIENT
+--==================================================
+
+function UIColors.ApplyGradient(object)
+	assert(
+		typeof(object) == "Instance" and object:IsA("GuiObject"),
+		"UIColors.ApplyGradient expects a GuiObject"
+	)
+
+	local oldGradient = object:FindFirstChild("SharedUIGradient")
+
+	if oldGradient and oldGradient:IsA("UIGradient") then
+		oldGradient:Destroy()
+	end
+
+	local gradientSettings = UIColors.Gradient
+
+	local gradient = Instance.new("UIGradient")
+	gradient.Name = "SharedUIGradient"
+
+	if gradientSettings.Stops and #gradientSettings.Stops >= 2 then
+		-- Multi-color gradient (e.g. NeonRainbow)
+		local keypoints = {}
+		local count = #gradientSettings.Stops
+
+		for i, color in ipairs(gradientSettings.Stops) do
+			table.insert(keypoints, ColorSequenceKeypoint.new((i - 1) / (count - 1), color))
+		end
+
+		gradient.Color = ColorSequence.new(keypoints)
+	else
+		gradient.Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, gradientSettings.Left),
+			ColorSequenceKeypoint.new(0.5, gradientSettings.Middle),
+			ColorSequenceKeypoint.new(1, gradientSettings.Right),
+		})
+	end
+
+	gradient.Rotation = gradientSettings.Rotation
+	gradient.Parent = object
+
+	return gradient
+end
+
+--==================================================
+-- AURORA BACKGROUND (theme-aware glowing orbs)
+--==================================================
+-- UIColors.CreateAurora(parentGuiObject) adds a glow background behind
+-- everything else in that frame. Orb colors come from the active theme's
+-- Gradient (Left / Middle / Right) and fade to the new colors on SetTheme().
+
+local TweenService = game:GetService("TweenService")
+
+local auroraRoots = setmetatable({}, { __mode = "k" })
+
+local function applyCorner(object, radius)
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = radius
+	corner.Parent = object
+end
+
+-- Optional custom override set with UIColors.SetAuroraColors().
+-- Cleared automatically when a theme is selected with SetTheme().
+local auroraOverride = nil
+
+local function auroraColor(slot)
+	if auroraOverride then
+		return auroraOverride[slot] or auroraOverride[#auroraOverride]
+	end
+	local g = UIColors.Gradient
+	if slot == 1 then
+		return g.Left
+	elseif slot == 2 then
+		return g.Middle
+	end
+	return g.Right
+end
+
+local function makeOrb(parent, slot, diameter, position, anchor)
+	local color = auroraColor(slot)
+
+	local holder = Instance.new("Frame")
+	holder.Name = "AuroraOrb"
+	holder.BackgroundTransparency = 1
+	holder.BorderSizePixel = 0
+	holder.Size = UDim2.fromOffset(diameter, diameter)
+	holder.AnchorPoint = anchor
+	holder.Position = position
+	holder.ZIndex = 1
+	holder.ClipsDescendants = false
+	holder.Parent = parent
+
+	local glowLayers = {
+		{Scale = 1.00, Transparency = 0.930},
+		{Scale = 0.84, Transparency = 0.900},
+		{Scale = 0.68, Transparency = 0.860},
+		{Scale = 0.52, Transparency = 0.800},
+		{Scale = 0.36, Transparency = 0.720},
+		{Scale = 0.21, Transparency = 0.620},
+	}
+
+	for i, layer in ipairs(glowLayers) do
+		local glow = Instance.new("Frame")
+		glow.Name = "GlowLayer" .. i
+		glow.AnchorPoint = Vector2.new(0.5, 0.5)
+		glow.Position = UDim2.fromScale(0.5, 0.5)
+		glow.Size = UDim2.fromScale(layer.Scale, layer.Scale)
+		glow.BackgroundColor3 = color
+		glow.BackgroundTransparency = layer.Transparency
+		glow.BorderSizePixel = 0
+		glow.ZIndex = holder.ZIndex + i
+		glow:SetAttribute("AuroraSlot", slot)
+		glow.Parent = holder
+
+		applyCorner(glow, UDim.new(0.5, 0))
+	end
+
+	-- Subtle inner accent
+	local core = Instance.new("Frame")
+	core.Name = "AuroraCore"
+	core.AnchorPoint = Vector2.new(0.5, 0.5)
+	core.Position = UDim2.fromScale(0.5, 0.5)
+	core.Size = UDim2.fromScale(0.10, 0.10)
+	core.BackgroundColor3 = color
+	core.BackgroundTransparency = 0.50
+	core.BorderSizePixel = 0
+	core.ZIndex = holder.ZIndex + #glowLayers + 1
+	core:SetAttribute("AuroraSlot", slot)
+	core.Parent = holder
+
+	applyCorner(core, UDim.new(0.5, 0))
+
+	return holder
+end
+
+--==================================================
+-- LIGHTNING EFFECT (CrimsonLightning theme only)
+--==================================================
+-- Random yellow lightning bolts flash across the aurora background.
+-- Bolts only appear while the CrimsonLightning theme is active and no
+-- custom aurora colors are set.
+
+local function getFxLayer(root)
+	local fx = root:FindFirstChild("AuroraFX")
+
+	if not fx then
+		fx = Instance.new("Frame")
+		fx.Name = "AuroraFX"
+		fx.BackgroundTransparency = 1
+		fx.BorderSizePixel = 0
+		fx.Size = UDim2.fromScale(1, 1)
+		fx.ClipsDescendants = true
+		fx.Active = false
+		fx.ZIndex = 20
+		fx.Parent = root
+	end
+
+	return fx
+end
+
+local LIGHTNING_THEME = "CrimsonLightning"
+local LIGHTNING_COLOR = Color3.fromRGB(255, 228, 70)
+local LIGHTNING_CORE = Color3.fromRGB(255, 250, 215)
+local LIGHTNING_MIN_DELAY = 1.8
+local LIGHTNING_MAX_DELAY = 5.0
+
+local function drawSegment(parent, p1, p2, thickness, color, transparency, zIndex)
+	local dx = p2.X - p1.X
+	local dy = p2.Y - p1.Y
+	local length = math.sqrt(dx * dx + dy * dy)
+
+	local segment = Instance.new("Frame")
+	segment.Name = "BoltSegment"
+	segment.AnchorPoint = Vector2.new(0.5, 0.5)
+	segment.Position = UDim2.fromOffset((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2)
+	segment.Size = UDim2.fromOffset(thickness, length + thickness)
+	segment.Rotation = math.deg(math.atan2(-dx, dy))
+	segment.BackgroundColor3 = color
+	segment.BackgroundTransparency = transparency
+	segment.BorderSizePixel = 0
+	segment.ZIndex = zIndex
+	segment.Parent = parent
+
+	return segment
+end
+
+local function buildBoltPath(startX, startY, endY, segments, jitter)
+	local points = { Vector2.new(startX, startY) }
+	local x = startX
+
+	for i = 1, segments do
+		x += math.random(-jitter, jitter)
+		local y = startY + (endY - startY) * (i / segments)
+		table.insert(points, Vector2.new(x, y))
+	end
+
+	return points
+end
+
+local function drawBoltPath(parent, points, glowThickness, coreThickness, zIndex)
+	for i = 1, #points - 1 do
+		drawSegment(parent, points[i], points[i + 1], glowThickness, LIGHTNING_COLOR, 0.82, zIndex)
+		drawSegment(parent, points[i], points[i + 1], coreThickness, LIGHTNING_CORE, 0.05, zIndex + 1)
+	end
+end
+
+local function strikeLightning(root)
+	local size = root.AbsoluteSize
+	if size.X < 60 or size.Y < 60 then
+		return
+	end
+
+	local layer = Instance.new("Frame")
+	layer.Name = "LightningStrike"
+	layer.BackgroundTransparency = 1
+	layer.BorderSizePixel = 0
+	layer.Size = UDim2.fromScale(1, 1)
+	layer.ZIndex = 20
+	layer.Active = false
+	layer.Parent = getFxLayer(root)
+
+	-- Screen flash
+	local flash = Instance.new("Frame")
+	flash.Name = "LightningFlash"
+	flash.Size = UDim2.fromScale(1, 1)
+	flash.BackgroundColor3 = LIGHTNING_COLOR
+	flash.BackgroundTransparency = 0.86
+	flash.BorderSizePixel = 0
+	flash.ZIndex = 20
+	flash.Parent = layer
+
+	-- Main bolt
+	local startX = math.random(math.floor(size.X * 0.12), math.floor(size.X * 0.88))
+	local endY = size.Y * (0.55 + math.random() * 0.4)
+	local segments = math.random(7, 11)
+	local jitter = math.max(14, math.floor(size.X * 0.06))
+
+	local mainPath = buildBoltPath(startX, 0, endY, segments, jitter)
+	drawBoltPath(layer, mainPath, 10, 2, 22)
+
+	-- Optional side branch
+	if math.random() < 0.7 and #mainPath > 4 then
+		local branchIndex = math.random(3, #mainPath - 2)
+		local origin = mainPath[branchIndex]
+		local branchEnd = origin.Y + (endY - origin.Y) * (0.4 + math.random() * 0.4)
+		local branchPath = buildBoltPath(origin.X, origin.Y, branchEnd, 4, jitter)
+
+		-- Push the branch sideways so it forks away from the main bolt.
+		local push = (math.random() < 0.5 and -1 or 1) * math.random(10, 22)
+		for i, point in ipairs(branchPath) do
+			branchPath[i] = Vector2.new(point.X + push * (i - 1), point.Y)
+		end
+
+		drawBoltPath(layer, branchPath, 6, 1, 22)
+	end
+
+	-- Fade out. Occasionally flicker for a second, softer flash.
+	local function fadeAll(duration)
+		local info = TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+		for _, object in ipairs(layer:GetDescendants()) do
+			if object:IsA("Frame") then
+				TweenService:Create(object, info, { BackgroundTransparency = 1 }):Play()
+			end
+		end
+	end
+
+	task.wait(0.09)
+
+	if math.random() < 0.55 then
+		-- Quick double strike
+		fadeAll(0.07)
+		task.wait(0.08)
+
+		if layer.Parent then
+			for _, object in ipairs(layer:GetDescendants()) do
+				if object.Name == "BoltSegment" then
+					object.BackgroundTransparency = object.Size.X.Offset >= 6 and 0.75 or 0.1
+				elseif object.Name == "LightningFlash" then
+					object.BackgroundTransparency = 0.9
+				end
+			end
+			task.wait(0.07)
+		end
+	end
+
+	if layer.Parent then
+		fadeAll(0.4)
+		task.delay(0.5, function()
+			if layer.Parent then
+				layer:Destroy()
+			end
+		end)
+	end
+end
+
+--==================================================
+-- THEME EFFECTS
+--==================================================
+-- Each theme can have an effect. The loop below runs the effect for the
+-- active theme at random intervals:
+--   Monochrome       -> drifting white dust + soft light sweeps
+--   NeonPink         -> twinkling sparkles + neon ring pulses
+--   Emerald          -> rising green spores + glowing pulses
+--   CrimsonLightning -> yellow lightning strikes
+--   NeonRainbow      -> color-cycling glow, rainbow sparkles, spectrum sweeps
+-- MidnightBlue has no effect (add one to UIColors Effects table below).
+
+local function randomThemeColor()
+	if UIColors.CurrentTheme == "NeonRainbow" then
+		return Color3.fromHSV(math.random(), 0.8, 1)
+	end
+
+	local g = UIColors.Gradient
+	local pick = math.random(1, 3)
+	if pick == 1 then
+		return g.Left
+	elseif pick == 2 then
+		return g.Middle
+	end
+	return g.Right
+end
+
+-- Soft glowing dot that rises and fades.
+local function spawnParticle(root, opts)
+	local size = root.AbsoluteSize
+	if size.X < 60 or size.Y < 60 then
+		return
+	end
+
+	local fx = getFxLayer(root)
+	local diameter = math.random(opts.MinSize, opts.MaxSize)
+	local startX = math.random(0, math.floor(size.X))
+	local startY = size.Y + diameter
+	local endX = startX + math.random(-opts.Sway, opts.Sway)
+	local endY = size.Y * (1 - opts.Rise)
+	local duration = opts.MinTime + math.random() * (opts.MaxTime - opts.MinTime)
+	local color = opts.Color or randomThemeColor()
+
+	local dot = Instance.new("Frame")
+	dot.Name = "FxParticle"
+	dot.AnchorPoint = Vector2.new(0.5, 0.5)
+	dot.Size = UDim2.fromOffset(diameter, diameter)
+	dot.Position = UDim2.fromOffset(startX, startY)
+	dot.BackgroundColor3 = color
+	dot.BackgroundTransparency = 1
+	dot.BorderSizePixel = 0
+	dot.ZIndex = 21
+	dot.Parent = fx
+	applyCorner(dot, UDim.new(0.5, 0))
+
+	local halo = Instance.new("Frame")
+	halo.Name = "Halo"
+	halo.AnchorPoint = Vector2.new(0.5, 0.5)
+	halo.Position = UDim2.fromScale(0.5, 0.5)
+	halo.Size = UDim2.fromScale(3, 3)
+	halo.BackgroundColor3 = color
+	halo.BackgroundTransparency = 1
+	halo.BorderSizePixel = 0
+	halo.ZIndex = 21
+	halo.Parent = dot
+	applyCorner(halo, UDim.new(0.5, 0))
+
+	TweenService:Create(
+		dot,
+		TweenInfo.new(duration, Enum.EasingStyle.Linear),
+		{ Position = UDim2.fromOffset(endX, endY) }
+	):Play()
+
+	local fadeIn = TweenInfo.new(duration * 0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	TweenService:Create(dot, fadeIn, { BackgroundTransparency = opts.Alpha }):Play()
+	TweenService:Create(halo, fadeIn, { BackgroundTransparency = opts.HaloAlpha }):Play()
+
+	task.delay(duration * 0.7, function()
+		if dot.Parent then
+			local fadeOut = TweenInfo.new(duration * 0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+			TweenService:Create(dot, fadeOut, { BackgroundTransparency = 1 }):Play()
+			TweenService:Create(halo, fadeOut, { BackgroundTransparency = 1 }):Play()
+		end
+	end)
+
+	task.delay(duration + 0.1, function()
+		if dot.Parent then
+			dot:Destroy()
+		end
+	end)
+end
+
+-- Twinkling four-point star.
+local function spawnSparkle(root)
+	local size = root.AbsoluteSize
+	if size.X < 60 or size.Y < 60 then
+		return
+	end
+
+	local fx = getFxLayer(root)
+
+	local star = Instance.new("TextLabel")
+	star.Name = "FxSparkle"
+	star.AnchorPoint = Vector2.new(0.5, 0.5)
+	star.Position = UDim2.fromOffset(
+		math.random(10, math.floor(size.X) - 10),
+		math.random(10, math.floor(size.Y) - 10)
+	)
+	star.Size = UDim2.fromOffset(34, 34)
+	star.BackgroundTransparency = 1
+	star.Text = "★"
+	star.Font = Enum.Font.GothamBold
+	star.TextSize = math.random(12, 28)
+	star.TextColor3 = (math.random() < 0.45) and Color3.fromRGB(255, 255, 255) or randomThemeColor()
+	star.TextTransparency = 1
+	star.Rotation = math.random(-30, 30)
+	star.ZIndex = 21
+	star.Parent = fx
+
+	TweenService:Create(
+		star,
+		TweenInfo.new(0.28, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+		{ TextTransparency = 0.05, Rotation = star.Rotation + 40 }
+	):Play()
+
+	task.delay(0.3, function()
+		if star.Parent then
+			TweenService:Create(
+				star,
+				TweenInfo.new(0.55, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+				{ TextTransparency = 1, Rotation = star.Rotation + 35 }
+			):Play()
+		end
+	end)
+
+	task.delay(0.95, function()
+		if star.Parent then
+			star:Destroy()
+		end
+	end)
+end
+
+-- Expanding neon ring.
+local function spawnRing(root, color)
+	local size = root.AbsoluteSize
+	if size.X < 60 or size.Y < 60 then
+		return
+	end
+
+	local fx = getFxLayer(root)
+
+	local ring = Instance.new("Frame")
+	ring.Name = "FxRing"
+	ring.AnchorPoint = Vector2.new(0.5, 0.5)
+	ring.Position = UDim2.fromOffset(
+		math.random(20, math.floor(size.X) - 20),
+		math.random(20, math.floor(size.Y) - 20)
+	)
+	ring.Size = UDim2.fromOffset(8, 8)
+	ring.BackgroundTransparency = 1
+	ring.BorderSizePixel = 0
+	ring.ZIndex = 21
+	ring.Parent = fx
+	applyCorner(ring, UDim.new(0.5, 0))
+
+	local ringStroke = Instance.new("UIStroke")
+	ringStroke.Color = color
+	ringStroke.Thickness = 2
+	ringStroke.Transparency = 0.1
+	ringStroke.Parent = ring
+
+	local info = TweenInfo.new(1.0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	local diameter = math.random(90, 170)
+
+	TweenService:Create(ring, info, { Size = UDim2.fromOffset(diameter, diameter) }):Play()
+	TweenService:Create(ringStroke, info, { Transparency = 1 }):Play()
+
+	task.delay(1.1, function()
+		if ring.Parent then
+			ring:Destroy()
+		end
+	end)
+end
+
+-- Soft diagonal light sweep across the window.
+local function spawnSweep(root, rainbow)
+	local size = root.AbsoluteSize
+	if size.X < 60 or size.Y < 60 then
+		return
+	end
+
+	local fx = getFxLayer(root)
+
+	local bar = Instance.new("Frame")
+	bar.Name = "FxSweep"
+	bar.AnchorPoint = Vector2.new(0.5, 0.5)
+	bar.Size = UDim2.fromOffset(rainbow and 140 or 90, size.Y * 1.9)
+	bar.Position = UDim2.fromOffset(-100, size.Y / 2)
+	bar.Rotation = 20
+	bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	bar.BackgroundTransparency = rainbow and 0.55 or 0.78
+	bar.BorderSizePixel = 0
+	bar.ZIndex = 21
+	bar.Parent = fx
+
+	local soften = Instance.new("UIGradient")
+	soften.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 1),
+		NumberSequenceKeypoint.new(0.5, 0),
+		NumberSequenceKeypoint.new(1, 1),
+	})
+
+	if rainbow then
+		soften.Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 50, 90)),
+			ColorSequenceKeypoint.new(0.17, Color3.fromRGB(255, 150, 40)),
+			ColorSequenceKeypoint.new(0.34, Color3.fromRGB(255, 230, 60)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(60, 255, 130)),
+			ColorSequenceKeypoint.new(0.67, Color3.fromRGB(50, 230, 255)),
+			ColorSequenceKeypoint.new(0.84, Color3.fromRGB(90, 120, 255)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(190, 80, 255)),
+		})
+	end
+
+	soften.Parent = bar
+
+	TweenService:Create(
+		bar,
+		TweenInfo.new(2.0, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
+		{ Position = UDim2.fromOffset(size.X + 100, size.Y / 2) }
+	):Play()
+
+	task.delay(2.1, function()
+		if bar.Parent then
+			bar:Destroy()
+		end
+	end)
+end
+
+--==================================================
+-- EFFECT TABLE (one entry per theme)
+--==================================================
+-- Min / Max = seconds between effect ticks.
+-- Run(root) is called on each tick.
+
+local Effects = {}
+
+Effects.CrimsonLightning = {
+	Min = LIGHTNING_MIN_DELAY,
+	Max = LIGHTNING_MAX_DELAY,
+	Run = strikeLightning,
+}
+
+Effects.Emerald = {
+	Min = 0.22,
+	Max = 0.55,
+	Run = function(root)
+		local opts = {
+			MinSize = 3, MaxSize = 9,
+			Sway = 40, Rise = 0.95,
+			MinTime = 4, MaxTime = 7,
+			Alpha = 0.08, HaloAlpha = 0.80,
+		}
+		spawnParticle(root, opts)
+		spawnParticle(root, opts)
+
+		if math.random() < 0.07 then
+			spawnRing(root, UIColors.Gradient.Middle)
+		end
+	end,
+}
+
+Effects.NeonPink = {
+	Min = 0.22,
+	Max = 0.55,
+	Run = function(root)
+		spawnSparkle(root)
+
+		if math.random() < 0.5 then
+			spawnSparkle(root)
+		end
+
+		if math.random() < 0.18 then
+			spawnRing(root, UIColors.Gradient.Middle)
+		end
+	end,
+}
+
+Effects.Monochrome = {
+	Min = 0.5,
+	Max = 1.1,
+	Run = function(root)
+		spawnParticle(root, {
+			Color = Color3.fromRGB(255, 255, 255),
+			MinSize = 2, MaxSize = 4,
+			Sway = 25, Rise = 0.55,
+			MinTime = 6, MaxTime = 10,
+			Alpha = 0.30, HaloAlpha = 0.92,
+		})
+
+		if math.random() < 0.10 then
+			spawnSweep(root)
+		end
+	end,
+}
+
+-- Slowly cycles the aurora orbs through the full color wheel.
+local function cycleAuroraHue(root)
+	local base = (os.clock() * 0.04) % 1
+
+	for _, object in ipairs(root:GetDescendants()) do
+		local slot = object:GetAttribute("AuroraSlot")
+
+		if slot then
+			local hue = (base + (slot - 1) / 3) % 1
+
+			TweenService:Create(
+				object,
+				TweenInfo.new(0.6, Enum.EasingStyle.Linear),
+				{ BackgroundColor3 = Color3.fromHSV(hue, 0.85, 1) }
+			):Play()
+		end
+	end
+end
+
+Effects.NeonRainbow = {
+	Min = 0.25,
+	Max = 0.5,
+	Run = function(root)
+		cycleAuroraHue(root)
+
+		spawnParticle(root, {
+			MinSize = 3, MaxSize = 8,
+			Sway = 45, Rise = 0.95,
+			MinTime = 4, MaxTime = 7,
+			Alpha = 0.08, HaloAlpha = 0.78,
+		})
+
+		if math.random() < 0.55 then
+			spawnSparkle(root)
+		end
+
+		if math.random() < 0.12 then
+			spawnRing(root, randomThemeColor())
+		end
+
+		if math.random() < 0.07 then
+			spawnSweep(root, true)
+		end
+	end,
+}
+
+local function startEffectLoop(root)
+	task.spawn(function()
+		local lastTheme = UIColors.CurrentTheme
+		local nextTime = os.clock() + 1
+
+		while root.Parent do
+			task.wait(0.15)
+
+			local theme = UIColors.CurrentTheme
+
+			if theme ~= lastTheme then
+				lastTheme = theme
+				nextTime = os.clock() + 0.5
+			end
+
+			local effect = Effects[theme]
+
+			if effect
+				and not auroraOverride
+				and root:IsDescendantOf(game)
+				and os.clock() >= nextTime
+			then
+				nextTime = os.clock() + effect.Min + math.random() * (effect.Max - effect.Min)
+
+				task.spawn(function()
+					local ok, err = pcall(effect.Run, root)
+					if not ok then
+						warn("[AFTERHOURS UIColors] Effect error:", err)
+					end
+				end)
+			end
+		end
+	end)
+end
+
+function UIColors.CreateAurora(parent)
+	assert(
+		typeof(parent) == "Instance" and parent:IsA("GuiObject"),
+		"UIColors.CreateAurora expects a GuiObject"
+	)
+
+	local old = parent:FindFirstChild("AuroraBackground")
+	if old then
+		old:Destroy()
+	end
+
+	local root = Instance.new("Frame")
+	root.Name = "AuroraBackground"
+	root.BackgroundTransparency = 1
+	root.BorderSizePixel = 0
+	root.Size = UDim2.fromScale(1, 1)
+	root.ClipsDescendants = true
+	root.Active = false
+	root.ZIndex = 0
+	root.Parent = parent
+
+	-- Match the parent's rounded corners so orbs never poke out.
+	local parentCorner = parent:FindFirstChildOfClass("UICorner")
+	if parentCorner then
+		parentCorner:Clone().Parent = root
+	end
+
+	local orbs = {
+		{Slot = 1, Size = 560, Pos = UDim2.fromScale(0.08, 0.12)},
+		{Slot = 2, Size = 500, Pos = UDim2.fromScale(0.92, 0.40)},
+		{Slot = 3, Size = 460, Pos = UDim2.fromScale(0.50, 1.00)},
+	}
+
+	for i, orb in ipairs(orbs) do
+		local holder = makeOrb(root, orb.Slot, orb.Size, orb.Pos, Vector2.new(0.5, 0.5))
+
+		-- Slow, gentle drift
+		TweenService:Create(
+			holder,
+			TweenInfo.new(9 + i * 2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+			{ Position = orb.Pos + UDim2.fromOffset(40, -30) }
+		):Play()
+	end
+
+	auroraRoots[root] = true
+	root:SetAttribute("AuroraKey", UIColors._AuroraKey())
+
+	-- Theme effects (dust, sparkles, spores, lightning)
+	startEffectLoop(root)
+
+	-- Safety net: if the theme/override changes and the event never reached
+	-- this window, catch up within half a second.
+	task.spawn(function()
+		while root.Parent do
+			task.wait(0.5)
+			if root.Parent and root:GetAttribute("AuroraKey") ~= UIColors._AuroraKey() then
+				UIColors._RefreshAurora(true)
+			end
+		end
+	end)
+
+	print("[AFTERHOURS UIColors] Aurora created on:", parent:GetFullName())
+	return root
+end
+
+function UIColors._AuroraKey()
+	if auroraOverride then
+		return "custom:" .. tostring(auroraOverride[1]) .. tostring(auroraOverride[2]) .. tostring(auroraOverride[3])
+	end
+	return "theme:" .. tostring(UIColors.CurrentTheme)
+end
+
+local function refreshAurora(silent)
+	local count = 0
+	for root in pairs(auroraRoots) do
+		if root.Parent then
+			count += 1
+			root:SetAttribute("AuroraKey", UIColors._AuroraKey())
+			for _, object in ipairs(root:GetDescendants()) do
+				local slot = object:GetAttribute("AuroraSlot")
+				if slot then
+					TweenService:Create(
+						object,
+						TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+						{ BackgroundColor3 = auroraColor(slot) }
+					):Play()
+
+					-- Guarantee the final color even if another script touched
+					-- this object while the fade was running.
+					task.delay(0.55, function()
+						if object.Parent then
+							object.BackgroundColor3 = auroraColor(slot)
+						end
+					end)
+				end
+			end
+		else
+			auroraRoots[root] = nil
+		end
+	end
+	if not silent then
+		print("[AFTERHOURS UIColors] Aurora recolored on", count, "window(s)")
+	end
+end
+
+UIColors._RefreshAurora = refreshAurora
+
+-- Custom aurora colors, independent of the theme.
+-- Usage: UIColors.SetAuroraColors(Color3.fromRGB(255,80,80), Color3.fromRGB(255,170,0), Color3.fromRGB(255,255,120))
+-- Pass one color to tint all three orbs the same.
+function UIColors.SetAuroraColors(first, second, third)
+	assert(typeof(first) == "Color3", "SetAuroraColors expects Color3 values")
+	second = second or first
+	third = third or second
+	auroraOverride = { first, second, third }
+	refreshAurora()
+end
+
+-- Go back to the active theme's colors.
+function UIColors.ResetAuroraColors()
+	auroraOverride = nil
+	refreshAurora()
+end
+
+themeChangedEvent.Event:Connect(function()
+	auroraOverride = nil -- selecting a theme takes over again
+
+	-- Clear leftover effects from the previous theme.
+	for root in pairs(auroraRoots) do
+		local fx = root.Parent and root:FindFirstChild("AuroraFX")
+		if fx then
+			fx:ClearAllChildren()
+		end
+	end
+
+	refreshAurora()
+end)
+
+return UIColors
